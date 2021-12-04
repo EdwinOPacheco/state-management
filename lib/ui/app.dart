@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:misiontic_template/domain/use_case/controllers/auth_controller.dart';
+import 'package:misiontic_template/domain/use_case/controllers/data_controller.dart';
 import 'package:misiontic_template/domain/use_case/controllers/theme_controller.dart';
+import 'package:misiontic_template/domain/use_case/controllers/ui_controller.dart';
 import 'package:misiontic_template/domain/use_case/theme_management.dart';
-import 'package:misiontic_template/presentation/pages/stateless/stateless_page.dart';
-import 'package:misiontic_template/presentation/theme/theme.dart';
+import 'package:misiontic_template/ui/pages/authentication/auth_page.dart';
+import 'package:misiontic_template/ui/pages/content/content_page.dart';
+import 'package:misiontic_template/ui/pages/details/details_page.dart';
+import 'package:misiontic_template/ui/pages/register/register_page.dart';
+import 'package:misiontic_template/ui/theme/theme.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -26,6 +32,9 @@ class _AppState extends State<App> {
 
   @override
   void initState() {
+    Get.put(AuthController());
+    Get.put(DataController());
+    Get.put(UIController());
     ever(controller.reactiveDarkMode, (bool isDarkMode) {
       manager.changeTheme(isDarkMode: isDarkMode);
     });
@@ -42,7 +51,14 @@ class _AppState extends State<App> {
             theme: MyTheme.ligthTheme,
             darkTheme: MyTheme.darkTheme,
             themeMode: ThemeMode.system,
-            home: StatelessList(),
+            home: AuthPage(),
+            routes: {
+              '/auth': (context) => AuthPage(),
+              '/content': (context) => ContentPage(),
+              '/details': (context) => DetailsPage(),
+              '/register': (context) => RegisterPage(),
+
+            },
           );
   }
 }

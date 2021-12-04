@@ -17,7 +17,19 @@ class CustomAppBar extends AppBar {
           key: key,
           centerTitle: true,
           title: tile,
+          leading: 
+            ClipOval(
+              child: Image.asset('images/model.jpg',
+                width: 30.0,
+                height: 30.0,
+                fit: BoxFit.cover,
+              ),
+            ),
           actions: [
+            IconButton(
+              icon: Icon(Icons.add_alert),
+              onPressed: () {}
+            ),
             IconButton(
               icon: Obx(
                 () => Icon(
@@ -28,6 +40,13 @@ class CustomAppBar extends AppBar {
               ),
               onPressed: () => controller.darkMode = !controller.darkMode,
             ),
+            IconButton(
+              icon: Icon(Icons.logout),
+              onPressed: () {
+                Get.offNamed('/auth');
+              }
+            ),
+            
           ],
         );
 }
